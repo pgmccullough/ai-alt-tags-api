@@ -1,12 +1,14 @@
 import { Application, Context, Router } from "https://deno.land/x/oak/mod.ts";
 import { openAIReq, scanImage } from "./controllers/index.ts";
 import { config } from 'https://deno.land/x/dotenv/mod.ts';
-// await config({export: true});
+config({export: true});
 
 const router = new Router();
 
 const verify = async (context: Context, next: () => Promise<unknown>) => {
   const headers: Headers = context.request.headers;
+  console.log("req from ",context.request.url.host);
+  if(context.request.url.host==="ai-alt-tags.com") await next();
   // check DB to see status of user
   if(!headers.get('AI-Alt-API-Key')||(Deno.env.get("TEMP_UUID")!==headers.get('AI-Alt-API-Key'))) return context.response.status = 401;
   await next();
@@ -26,4 +28,4 @@ const app = new Application();
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-await app.listen({ port: 8000 });
+await app.listen({ port: 8080 });

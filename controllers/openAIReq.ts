@@ -1,7 +1,7 @@
 import { OpenAI } from "https://deno.land/x/openai/mod.ts";
-import { config } from 'https://deno.land/x/dotenv/mod.ts';
 
 export const openAIReq = async (imgKeywords: string) => {
+console.log(Deno.env.get("AI_QUERY"))
   try {
     const openAI = new OpenAI(Deno.env.get("OPENAI_API_KEY")!);
     const imgKeywordsStr = `

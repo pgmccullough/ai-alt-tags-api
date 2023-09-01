@@ -1,5 +1,3 @@
-import { config } from 'https://deno.land/x/dotenv/mod.ts';
-
 export const scanImage = async (imageUrl: string): Promise<string> => {
   try {
     const url = `${Deno.env.get("IMAGGA_API_ENDPOINT")}${encodeURIComponent(imageUrl)}`;
