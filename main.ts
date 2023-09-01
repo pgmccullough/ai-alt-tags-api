@@ -13,7 +13,7 @@ const verify = async (context: Context, next: () => Promise<unknown>) => {
 }
 
 router
-  .post("/api", verify, async (context: Context) => {    
+  .post("/", verify, async (context: Context) => {    
     const { request: req } = context;
     const { imgUrl } = await req.body().value;
     if(!imgUrl) return context.response.status = 400;
