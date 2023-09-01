@@ -1,12 +1,11 @@
-import { config } from "https://deno.land/x/dotenv/mod.ts";
 import { OpenAI } from "https://deno.land/x/openai/mod.ts";
+import { config } from 'https://deno.land/x/dotenv/mod.ts';
 
 export const openAIReq = async (imgKeywords: string) => {
-  const { AI_QUERY, OPENAI_API_KEY } = config();
   try {
-    const openAI = new OpenAI(OPENAI_API_KEY);
+    const openAI = new OpenAI(Deno.env.get("OPENAI_API_KEY")!);
     const imgKeywordsStr = `
-      ${AI_QUERY}
+      ${Deno.env.get("AI_QUERY")}
       ${JSON.stringify(imgKeywords)}
     `;
     const completion = await openAI.createChatCompletion({

@@ -1,17 +1,11 @@
-import { config } from "https://deno.land/x/dotenv/mod.ts";
-
-const { 
-  IMAGGA_API_KEY: apiKey, 
-  IMAGGA_API_SECRET: apiSecret, 
-  IMAGGA_API_ENDPOINT: apiEndpoint
-} = config();
+import { config } from 'https://deno.land/x/dotenv/mod.ts';
 
 export const scanImage = async (imageUrl: string): Promise<string> => {
   try {
-    const url = `${apiEndpoint}${encodeURIComponent(imageUrl)}`;
+    const url = `${Deno.env.get("IMAGGA_API_ENDPOINT")}${encodeURIComponent(imageUrl)}`;
     const response = await fetch(url, {
       headers: {
-        'Authorization': `Basic ${btoa(`${apiKey}:${apiSecret}`)}`
+        'Authorization': `Basic ${btoa(`${Deno.env.get("IMAGGA_API_KEY")}:${Deno.env.get("IMAGGA_API_SECRET")}`)}`
       }
     });
     return await response.json();
