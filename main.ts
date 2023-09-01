@@ -1,5 +1,6 @@
 import { Application, Context, Router } from "https://deno.land/x/oak/mod.ts";
 import { openAIReq, scanImage } from "./controllers/index.ts";
+import { oakCors } from "https://deno.land/x/cors/mod.ts";
 import { config } from 'https://deno.land/x/dotenv/mod.ts';
 config({export: true});
 
@@ -25,6 +26,7 @@ router
   })
 
 const app = new Application();
+app.use(oakCors());
 app.use(router.routes());
 app.use(router.allowedMethods());
 
