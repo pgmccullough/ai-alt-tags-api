@@ -7,6 +7,7 @@ const router = new Router();
 const verify = async (context: Context, next: () => Promise<unknown>) => {
   const headers: Headers = context.request.headers;
   // check DB to see status of user
+  console.log(headers.get('AI-Alt-API-Key'),config().TEMP_UUID);
   if(!headers.get('AI-Alt-API-Key')||(config().TEMP_UUID!==headers.get('AI-Alt-API-Key'))) return context.response.status = 401;
   await next();
 }
