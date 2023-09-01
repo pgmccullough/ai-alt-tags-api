@@ -8,8 +8,8 @@ const router = new Router();
 
 const verify = async (context: Context, next: () => Promise<unknown>) => {
   const headers: Headers = context.request.headers;
-  if(headers.get("origin")==="https://ai-alt-tags.com") await next();
-  if(headers.get("origin")==="http://localhost:8000") await next();
+  if(headers.get("origin")==="https://ai-alt-tags.com") return await next();
+  if(headers.get("origin")==="http://localhost:8000") return await next();
   // check DB to see status of user
   if(!headers.get('AI-Alt-API-Key')||(Deno.env.get("TEMP_UUID")!==headers.get('AI-Alt-API-Key'))) return context.response.status = 401;
   await next();
